@@ -1,32 +1,32 @@
 ---
 all:
   hosts:
-    whitepi:
-      ansible_host: whitepi.local
-    greenpi:
-      ansible_host: greenpi.local
-    redpi:
-      ansible_host: redpi.local
-    bluepi:
-      ansible_host: bluepi.local
+    cluster-0:
+      ansible_host: cluster-0.unaffordium.com
+    cluster-1:
+      ansible_host: cluster-1.unaffordium.com
+    cluster-2:
+      ansible_host: cluster-2.unaffordium.com
+#    cluster-3:
+#      ansible_host: cluster-3.unaffordium.com
   children:
     raspberry_pi:
       hosts:
-        whitepi: {}
-        greenpi: {}
-        redpi: {}
-        bluepi: {}
+        cluster-0: {}
+        cluster-1: {}
+        cluster-2: {}
+#        cluster-3: {}
     k3s_master:
       hosts:
-        whitepi: {}
+        cluster-0: {}
     k3s_worker:
       hosts:
-        greenpi: {}
-        redpi: {}
-        bluepi: {}
+        cluster-1: {}
+        cluster-2: {}
+#        cluster-3: {}
     monitoring_server:
       hosts:
-        whitepi: {}
+        cluster-0: {}
   vars:
     ansible_python_interpreter: /usr/bin/python3
     remote_user: pi

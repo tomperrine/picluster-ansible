@@ -12,13 +12,40 @@
     createhome: "no"
     state: present
 
-- name: Install prometheus node exporter
+
+- name: Install prometheus node exporter ARM v6
+  when: ansible_machine == 'armv6l'
+  unarchive:
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ version }}/node_exporter-{{ version }}.linux-armv6.tar.gz"
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy prometheus node exporter file to bin ARM v6
+  when: ansible_machine == 'armv6l'
+  copy:
+    src: "/tmp/node_exporter-{{ version }}.linux-armv6/node_exporter"
+    dest: "/usr/local/bin/node_exporter"
+    owner: "{{userId}}"
+    group: "{{groupId}}"
+    remote_src: yes
+    mode: 0755
+
+- name: Delete node exporter tmp folder ARM v6
+  when: ansible_machine == 'armv6l'
+  file:
+    path: '/tmp/node_exporter-{{ version }}.linux-armv6'
+    state: absent
+
+
+- name: Install prometheus node exporter ARM v7
+  when: ansible_machine == 'armv7l'
   unarchive:
     src: "https://github.com/prometheus/node_exporter/releases/download/v{{ version }}/node_exporter-{{ version }}.linux-armv7.tar.gz"
     dest: /tmp/
     remote_src: yes
 
-- name: Copy prometheus node exporter file to bin
+- name: Copy prometheus node exporter file to bin ARM v7
+  when: ansible_machine == 'armv7l'
   copy:
     src: "/tmp/node_exporter-{{ version }}.linux-armv7/node_exporter"
     dest: "/usr/local/bin/node_exporter"
@@ -27,7 +54,8 @@
     remote_src: yes
     mode: 0755
 
-- name: Delete node exporter tmp folder
+- name: Delete node exporter tmp folder ARM v7
+  when: ansible_machine == 'armv7l'
   file:
     path: '/tmp/node_exporter-{{ version }}.linux-armv7'
     state: absent

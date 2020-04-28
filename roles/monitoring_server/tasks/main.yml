@@ -3,7 +3,7 @@
   apt:
     pkg:
       - adduser
-      - libfontconfig1
+
 
 - name: Creating prometheus user group
   group: name="{{groupId}}"
@@ -71,10 +71,7 @@
 
 - name: Display IP address
   debug:
-    var: hostvars[inventory_hostname]['ansible_facts']['eth0']['ipv4']['address']
-- name: Display host
-  debug:
-    var: inventory_hostname
+    msg: " {{ inventory_hostname }}  {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} "
 
 - name: config file
   template:

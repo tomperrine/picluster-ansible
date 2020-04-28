@@ -1,8 +1,13 @@
 ---
+##- name: 'Show machine architecture'
+##  debug:
+##    msg:
+##    - System {{ inventory_hostname }} has machine {{ ansible_machine }} and has architecture {{ ansible_architecture }}
+
 - name: 'Update and upgrade apt packages'
   become: yes
   apt:
-    upgrade: yes
+    upgrade: 'yes'
     update_cache: yes
     cache_valid_time: 86400
 - name: 'Install packages'
